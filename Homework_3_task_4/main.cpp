@@ -12,9 +12,9 @@ int main()
     scanf("%d", &number);
     printf("%d in binary is ", number);
     double binary = 0;
-    for (long long int i = 1; number > 0; i*=10)
+    for (int i = 0; number > 0; ++i)
     {
-        binary = binary + number%2 * i;
+        binary = binary + number%2 * pow(10, i);
         number /= 2;
     }
 
