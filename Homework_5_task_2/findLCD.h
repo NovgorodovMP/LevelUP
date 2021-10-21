@@ -1,0 +1,8 @@
+#ifndef FINDLCD_H
+#define FINDLCD_H
+#include <math.h>
+#include <stdio.h>
+#include <stdlib.h>
+int* enterNumbers();
+void findingLCD(int* threeNumbers);
+#endif // FINDLCD_H
