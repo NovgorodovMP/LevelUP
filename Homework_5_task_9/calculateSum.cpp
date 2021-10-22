@@ -1,5 +1,5 @@
-#include <calculateSum.h>
-void calculateSum(int** array, size_t size)
+#include "calculateSum.h"
+int calculateSum(int** array, size_t size)
 {
     int sum = 0;
     for (size_t i = 0; i < size; ++i)
@@ -13,4 +13,5 @@ void calculateSum(int** array, size_t size)
         }
     }
     printf("Summ is: %d", sum);
+    return sum;
 }

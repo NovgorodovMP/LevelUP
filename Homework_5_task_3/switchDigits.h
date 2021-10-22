@@ -3,5 +3,5 @@
 #include <math.h>
 #include <stdio.h>
 int enterNumber();
-void switchDigits(int number);
+int switchDigits(int number);
 #endif // SWITCHDIGITS_H

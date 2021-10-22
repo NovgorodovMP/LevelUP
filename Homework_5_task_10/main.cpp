@@ -10,7 +10,10 @@
 int main()
 {
     char* string = createStringArray();
+    char* result = createStringArray();
     fillStringArray(string);
-    removeOddWords(string);
+    removeOddWords(string, result);
+
     deleteStringArray(string);
+    deleteStringArray(result);
 }

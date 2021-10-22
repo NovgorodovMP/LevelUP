@@ -1,4 +1,4 @@
-#include <swapRowColumn.h>
+#include "swapRowColumn.h"
 int enterK()
 {
     int k = 1;
@@ -8,9 +8,9 @@ int enterK()
     k = k > 0 ? k : 1;
     return k;
 }
-void swapRowColumn(int** array, size_t size)
+void swapRowColumn(int** array, size_t size, int swapper)
 {
-    int k = enterK();
+    int k = swapper;
     int temporary = 0;
     for (size_t i = 0; i < size; ++i)
     {

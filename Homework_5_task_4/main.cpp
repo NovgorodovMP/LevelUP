@@ -8,6 +8,7 @@ int main()
 {
 
     int number = enterNumber();
-    dec2bin(number);
+    int* binary = dec2bin(number);
+    delete[] binary;
     return 0;
 }

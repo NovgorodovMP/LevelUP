@@ -1,7 +1,8 @@
-#include <swapElements.h>
+#include "swapElements.h"
 
-void swapElements(int* array, size_t size)
+int swapElements(int* array, size_t size)
 {
+    if (array == nullptr) return -1;
     int maxValue = -100;
     int lastNegativeIndex = 0;
     int maxValueIndex = 0;
@@ -14,6 +15,15 @@ void swapElements(int* array, size_t size)
         }
         lastNegativeIndex = array[i] < 0 ? i : lastNegativeIndex;
     }
-    array[maxValueIndex] = array[lastNegativeIndex];
-    array[lastNegativeIndex] = maxValue;
+    if (lastNegativeIndex == 0 && array[lastNegativeIndex] >= 0)
+    {
+        return 0;
+    }
+    else
+    {
+        array[maxValueIndex] = array[lastNegativeIndex];
+        array[lastNegativeIndex] = maxValue;
+    }
+
+    return 0;
 }

@@ -4,6 +4,6 @@
 #include <stdio.h>
 const double PRECISION = 10e-5;
 double enterNumber();
-void countingLine(double number);
+double countingLine(double number);
 
 #endif // COUNTINGLINE_H

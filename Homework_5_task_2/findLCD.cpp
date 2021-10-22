@@ -1,4 +1,4 @@
-#include <findLCD.h>
+#include "findLCD.h"
 int* enterNumbers()
 {
     int number1;
@@ -13,9 +13,9 @@ int* enterNumbers()
     return M;
 }
 
-void findingLCD(int* threeNumbers)
+int findingLCD(int* threeNumbers)
 {
-    if (threeNumbers == nullptr) return;
+    if (threeNumbers == nullptr) return -1;
     int numberMax = abs(threeNumbers[0]) > abs(threeNumbers[1]) ? (abs(threeNumbers[0]) > abs(threeNumbers[2]) ? abs(threeNumbers[0]) : abs(threeNumbers[2])) : (threeNumbers[1] > abs(threeNumbers[2]) ? abs(threeNumbers[1]) : abs(threeNumbers[2]));
     int divider = 1;
     for (int i = abs(numberMax); i > 1; --i)
@@ -27,4 +27,5 @@ void findingLCD(int* threeNumbers)
     }
     printf("The least common divider is %d", divider);
     delete[] threeNumbers;
+    return divider;
 }

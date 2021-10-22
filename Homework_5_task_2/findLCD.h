@@ -4,5 +4,5 @@
 #include <stdio.h>
 #include <stdlib.h>
 int* enterNumbers();
-void findingLCD(int* threeNumbers);
+int findingLCD(int* threeNumbers);
 #endif // FINDLCD_H

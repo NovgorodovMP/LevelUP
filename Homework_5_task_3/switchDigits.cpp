@@ -1,4 +1,4 @@
-#include <switchDigits.h>
+#include "switchDigits.h"
 int enterNumber()
 {
     int number = 0;
@@ -6,7 +6,7 @@ int enterNumber()
     scanf("%d", &number);
     return number;
 }
-void switchDigits(int number)
+int switchDigits(int number)
 {
     int N = number;
     int numberNew = 0;
@@ -32,4 +32,5 @@ void switchDigits(int number)
     }
 
     printf("Answer is %d", numberNew);
+    return numberNew;
 }

@@ -1,5 +1,5 @@
-#include <checkCorrectBracketSequences.h>
-void checkCorrectBracketSequences(char* string)
+#include "checkCorrectBracketSequences.h"
+int checkCorrectBracketSequences(char* string)
 {
     int counter = 0;
     for (size_t i = 0; i < strlen(string); ++i)
@@ -25,4 +25,5 @@ void checkCorrectBracketSequences(char* string)
     {
         printf("It is incorrect bracket sequences\n");
     }
+    return counter;
 }

@@ -1,4 +1,4 @@
-#include <countingLine.h>
+#include "countingLine.h"
 double enterNumber()
 {
     double x = 0;
@@ -17,7 +17,7 @@ double enterNumber()
     }
     return x;
 }
-void countingLine(double x)
+double countingLine(double x)
 {
     long int factorial1 = 1;
     long int factorial2 = 1;
@@ -36,4 +36,5 @@ void countingLine(double x)
         else break;
     }
     printf("Answer is %.05f", answer);
+    return static_cast<double>(static_cast<int>(round(answer * 10e4))) / 10e4;
 }

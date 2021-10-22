@@ -1,38 +1,27 @@
 
-#include <removeOddWords.h>
-void removeOddWords(char* string)
+#include "removeOddWords.h"
+void removeOddWords(char* string, char* resultString)
 {
-    int counter = 0;
-    for (size_t i = 0; i < strlen(string); ++i)
-    {
-        if (string[i] == ' ')
-        {
-            if(counter % 2 == 0)
-            {
-                for (size_t j = i - counter; j < i; ++j)
-                {
-                    printf("%c", string[j]);
-                }
-                printf(" ");
-            }
-            counter = 0;
 
-        }
-        else if (i == strlen(string) - 1)
+    char delimeter = ' ';
+    char word[255];
+    char* ptr = string;
+
+    do
+    {
+        if(sscanf(ptr, "%s", word) == EOF)
         {
-            if(counter % 2 == 1)
-            {
-                for (size_t j = i - counter; j <= i; ++j)
-                {
-                    printf("%c", string[j]);
-                }
-                printf(" ");
-            }
-            counter = 0;
+            break;
         }
-        else
+        if (strlen(word) % 2 == 0)
         {
-            counter++;
+            fprintf(stdout, "%s\n", word);
+            strcat(resultString, word);
+            resultString[strlen(word)] = delimeter;
         }
+        ptr += strlen(word);
+        while (*ptr && *ptr == delimeter) ++ptr;
     }
+    while(true);
+
 }

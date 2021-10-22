@@ -3,7 +3,7 @@
 
 char* createStringArray()
 {
-    char* string = new char[255];
+    char* string = new char[255] {};
     return string;
 }
 

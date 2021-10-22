@@ -4,5 +4,5 @@
 #include <stdlib.h>
 #include <time.h>
 #include <string.h>
-void checkCorrectBracketSequences(char* string);
+int checkCorrectBracketSequences(char* string);
 #endif // CHECKCORRECTBRACKETSEQUENCES_H

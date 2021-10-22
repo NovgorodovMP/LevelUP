@@ -13,7 +13,8 @@ int main()
     int** array2D = createArray(size);
     fillArray(array2D, size);
     printArray(array2D, size);
-    swapRowColumn(array2D, size);
+    int swapper = enterK();
+    swapRowColumn(array2D, size, swapper);
     printArray(array2D, size);
     deleteArray(array2D);
     return 0;
