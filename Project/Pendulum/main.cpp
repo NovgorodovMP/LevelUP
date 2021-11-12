@@ -4,7 +4,8 @@
 #include <GL/gl.h>
 #include <GL/glu.h>
 #include <glut.h>
-
+#include <time.h>
+#include <stdio.h>
 struct Torus
 {
     float innerRadius;
@@ -33,31 +34,11 @@ void init (void)
    /* включаем z-буфер */
    glEnable(GL_DEPTH_TEST);
 }
-void drawTorus (Torus* torus)
-{
 
-   glPushMatrix ();
-   glMaterialfv(GL_FRONT, GL_AMBIENT, torus->materialAmbient);
-   glMaterialfv(GL_FRONT, GL_DIFFUSE, torus->materialDiffuse);
-   glMaterialfv(GL_FRONT, GL_SPECULAR, torus->materailSpecular);
-   glMaterialf(GL_FRONT, GL_SHININESS, torus->materialShine);
-   glPushMatrix ();
-   glTranslatef (0., 0., 0.0);
-   glutSolidTorus(torus->innerRadius, torus->outerRadius, 100, 100);
-//   glRotatef(90, 1, 1, 1);
-//   GLUquadricObj *obj = gluNewQuadric();
-//   gluQuadricDrawStyle(obj, GLU_LINE);
-//   gluCylinder(obj, 20, 20, 50, 10, 10);
-   glPopMatrix ();
-   glFlush ();
-}
 void reshape(int w, int h)
 {
-  /* устанавливаем размер области вывода
-   * равным размеру окна
-   */
+
   glViewport (0, 0, (GLsizei) w, (GLsizei) h);
-  /* задаем матрицу проекции с учетом размеров окна */
   glMatrixMode(GL_PROJECTION);
   glLoadIdentity ();
   gluPerspective(
@@ -67,21 +48,31 @@ void reshape(int w, int h)
   glMatrixMode(GL_MODELVIEW);
   glLoadIdentity ();
   gluLookAt(
-   0.0f,0.0f,500.0f, /* положение камеры */
+   500.0f,0.0f,500.0f, /* положение камеры */
    0.0f,0.0f,0.0f, /* центр сцены */
-   0.0f,1.0f,0.0f); /* положительное направление оси y */
+   1.0f,1.0f,0.0f); /* положительное направление оси y */
 }
-static GLfloat spin = 0.0;
+
+static GLfloat spin = 1;
 void spinTorus(void)
 {
-    spin += 0.001;
-
-//    for(int i=0; i < 10000000; ++i);
-    if (spin > 360) spin = 0.;
+    Sleep(5);
+    spin += 1;
+    if(spin == 360) spin = 0;
     glutPostRedisplay();
+}
+void drawTorus (Torus* torus)
+{
+   glMaterialfv(GL_FRONT, GL_AMBIENT, torus->materialAmbient);
+   glMaterialfv(GL_FRONT, GL_DIFFUSE, torus->materialDiffuse);
+   glMaterialfv(GL_FRONT, GL_SPECULAR, torus->materailSpecular);
+   glMaterialf(GL_FRONT, GL_SHININESS, torus->materialShine);
+   glTranslatef (0., 0., 0.0);
+   glutSolidTorus(torus->innerRadius, torus->outerRadius, 100, 100);
 }
 void display (void)
 {
+
     Torus torus_1
     {
         5.,
@@ -110,13 +101,23 @@ void display (void)
         0.5*128
     };
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
-//    glRotatef(spin, 0, 0, 1);
+    glPushMatrix();
+    glPushMatrix();
+    glRotatef(spin, 1, 1, 1);
     drawTorus(&torus_1);
-    glRotatef(spin, 0, 1, 0);
-//    drawTorus(&torus_2);
-//    glRotatef(spin, 1, 0, 0);
-//    drawTorus(&torus_3);
+    glPopMatrix();
+
+    glPushMatrix();
+    glRotatef(spin, 1, 1, 0);
+    drawTorus(&torus_2);
+    glPopMatrix();
+
+    glPushMatrix();
+    glRotatef(spin, 0, 1, 1);
+    drawTorus(&torus_3);
+    glPopMatrix();
+
+    glFlush ();
     glutSwapBuffers();
 }
 
@@ -129,10 +130,8 @@ int main(int argc, char** argv)
    init ();
    glutReshapeFunc (reshape);
    glutDisplayFunc (display);
-//   glutKeyboardFunc (keyboard);
-//   glClearColor(1 ,0 ,0 , 1);
-//   glClearColor(0.5, 0.5, 0.5, 1);
    glutIdleFunc(spinTorus);
+   glClearColor(0.9, 0.9, 0.9, 0.9);
    glutMainLoop();
    return 0;
 }
