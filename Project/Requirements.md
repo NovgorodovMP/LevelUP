@@ -1,5 +1,5 @@
-Проект - маятник "Сфера"
-![This is an image](https://upload.wikimedia.org/wikipedia/commons/a/ac/Rotating_gimbal-xyz.gif)
+Проект - маятник "Сфера"\n
+![This is an image](https://upload.wikimedia.org/wikipedia/commons/a/ac/Rotating_gimbal-xyz.gif)\n
 Требования:
 	* маятник находится в трехмерном пространстве
 	* маятник должен состоять из трех уровней (колец)
