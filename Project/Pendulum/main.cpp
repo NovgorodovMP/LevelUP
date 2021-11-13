@@ -48,15 +48,15 @@ void reshape(int w, int h)
   glMatrixMode(GL_MODELVIEW);
   glLoadIdentity ();
   gluLookAt(
-   500.0f,0.0f,500.0f, /* положение камеры */
+   0.0f,0.0f,500.0f, /* положение камеры */
    0.0f,0.0f,0.0f, /* центр сцены */
-   1.0f,1.0f,0.0f); /* положительное направление оси y */
+   0.0f,1.0f,0.0f); /* положительное направление оси y */
 }
 
 static GLfloat spin = 1;
 void spinTorus(void)
 {
-    Sleep(5);
+    Sleep(2*5);
     spin += 1;
     if(spin == 360) spin = 0;
     glutPostRedisplay();
@@ -103,20 +103,21 @@ void display (void)
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     glPushMatrix();
     glPushMatrix();
-    glRotatef(spin, 1, 1, 1);
+    glPushMatrix();
+    glRotatef(spin, 1, 0, 0);
     drawTorus(&torus_1);
     glPopMatrix();
-
-    glPushMatrix();
-    glRotatef(spin, 1, 1, 0);
+    glRotatef(spin, 1, 0, 0);
+//    glPushMatrix();
+    glRotatef(spin, 0, 1, 0);
     drawTorus(&torus_2);
     glPopMatrix();
-
-    glPushMatrix();
-    glRotatef(spin, 0, 1, 1);
+    glRotatef(spin, 0, 1, 0);
+//    glPushMatrix();
+    glRotatef(spin, 1, 0, 0);
     drawTorus(&torus_3);
     glPopMatrix();
-
+glPushMatrix();
     glFlush ();
     glutSwapBuffers();
 }
