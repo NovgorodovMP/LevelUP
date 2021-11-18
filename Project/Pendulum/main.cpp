@@ -6,6 +6,7 @@
 #include <glut.h>
 #include <time.h>
 #include <stdio.h>
+#include <math.h>
 struct Torus
 {
     float innerRadius;
@@ -48,7 +49,7 @@ void reshape(int w, int h)
   glMatrixMode(GL_MODELVIEW);
   glLoadIdentity ();
   gluLookAt(
-   0.0f,0.0f,500.0f, /* положение камеры */
+   0.0f,0.0f,1000.0f, /* положение камеры */
    0.0f,0.0f,0.0f, /* центр сцены */
    0.0f,1.0f,0.0f); /* положительное направление оси y */
 }
@@ -56,8 +57,7 @@ void reshape(int w, int h)
 static GLfloat spin = 1;
 void spinTorus(void)
 {
-    Sleep(2*5);
-    spin += 1;
+    spin += 0.01;
     if(spin == 360) spin = 0;
     glutPostRedisplay();
 }
@@ -100,21 +100,30 @@ void display (void)
         {0.6f,0.6f,0.6f},
         0.5*128
     };
+//    GLdouble rotateMatrix[16] =   {1,          0,               0,               0,
+//                                   0,          cos(spin),       -sin(spin),      0,
+//                                   0,          sin(spin),       cos(spin),       0,
+//                                   0,          0,               0,               1};
+    GLdouble rotateMatrix[16] =   {spin,  0,               0,               -1,
+                                   0,          spin,       -1,              0,
+                                   0,          0,               spin,       0,
+                                   1,          1,               0,               spin};
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     glPushMatrix();
     glPushMatrix();
     glPushMatrix();
-    glRotatef(spin, 1, 0, 0);
+    glMultMatrixd(rotateMatrix);
+//    glRotatef(spin, 1, 0, 0);
     drawTorus(&torus_1);
     glPopMatrix();
-    glRotatef(spin, 1, 0, 0);
+//    glRotatef(spin, 1, 0, 0);
 //    glPushMatrix();
-    glRotatef(spin, 0, 1, 0);
+//    glRotatef(spin, 0, 1, 0);
     drawTorus(&torus_2);
     glPopMatrix();
-    glRotatef(spin, 0, 1, 0);
+//    glRotatef(spin, 0, 1, 0);
 //    glPushMatrix();
-    glRotatef(spin, 1, 0, 0);
+//    glRotatef(spin, 1, 0, 0);
     drawTorus(&torus_3);
     glPopMatrix();
 glPushMatrix();
