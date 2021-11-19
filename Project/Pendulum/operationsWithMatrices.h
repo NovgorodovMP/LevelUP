@@ -9,9 +9,9 @@ struct vector
     GLdouble coorZ;
 };
 
-static vector AXIS_OX= {1, 0, 0};
-static vector AXIS_OY= {0, 1, 0};
-static vector AXIS_OZ= {0, 0, 1};
+static vector AXIS_OX= {1., 0., 0.};
+static vector AXIS_OY= {0., 1., 0.};
+static vector AXIS_OZ= {0., 0., 1.};
 
 
 
