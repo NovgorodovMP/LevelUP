@@ -7,3 +7,5 @@ void drawTorus (Torus* torus)
    glMaterialf(GL_FRONT, GL_SHININESS, torus->materialShine);
    glutSolidTorus(torus->innerRadius, torus->outerRadius, 100, 100);
 }
+
+

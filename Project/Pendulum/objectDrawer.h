@@ -3,7 +3,8 @@
 #include <GL/gl.h>
 #include <GL/glu.h>
 #include <glut.h>
-static GLdouble spin = 1;
+#include <operationsWithMatrices.h>
+static GLdouble spin = 0;
 struct Torus
 {
     float innerRadius;
@@ -14,4 +15,7 @@ struct Torus
     float materialShine;
 };
 void drawTorus(Torus* torus);
+void drawPenechki();
+//void spinTorus(void);
+//void display (void);
 #endif // OBJECTDRAWER_H
