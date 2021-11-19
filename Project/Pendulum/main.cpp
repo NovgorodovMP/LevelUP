@@ -7,16 +7,9 @@
 #include <time.h>
 #include <stdio.h>
 #include <math.h>
-struct Torus
-{
-    float innerRadius;
-    float outerRadius;
-    float materialAmbient[3];
-    float materialDiffuse[3];
-    float materailSpecular[3];
-    float materialShine;
-};
 
+#include "objectDrawer.h"
+#include "operationsWithMatrices.h"
 
 void init (void)
 {
@@ -39,7 +32,7 @@ void init (void)
 void reshape(int w, int h)
 {
 
-  glViewport (0, 0, (GLsizei) w, (GLsizei) h);
+  glViewport (1, 0, (GLsizei) w, (GLsizei) h);
   glMatrixMode(GL_PROJECTION);
   glLoadIdentity ();
   gluPerspective(
@@ -49,30 +42,23 @@ void reshape(int w, int h)
   glMatrixMode(GL_MODELVIEW);
   glLoadIdentity ();
   gluLookAt(
-   0.0f,0.0f,1000.0f, /* положение камеры */
+   0.,0.0f,1000.0f, /* положение камеры */
    0.0f,0.0f,0.0f, /* центр сцены */
    0.0f,1.0f,0.0f); /* положительное направление оси y */
 }
 
-static GLfloat spin = 1;
+
 void spinTorus(void)
 {
-    spin += 0.01;
-    if(spin == 360) spin = 0;
+    spin += 0.002;
+//    if(spin == 360) spin = 0;
     glutPostRedisplay();
 }
-void drawTorus (Torus* torus)
-{
-   glMaterialfv(GL_FRONT, GL_AMBIENT, torus->materialAmbient);
-   glMaterialfv(GL_FRONT, GL_DIFFUSE, torus->materialDiffuse);
-   glMaterialfv(GL_FRONT, GL_SPECULAR, torus->materailSpecular);
-   glMaterialf(GL_FRONT, GL_SHININESS, torus->materialShine);
-   glTranslatef (0., 0., 0.0);
-   glutSolidTorus(torus->innerRadius, torus->outerRadius, 100, 100);
-}
+
 void display (void)
 {
 
+//    glRotated(45, 0, 1, 0);
     Torus torus_1
     {
         5.,
@@ -104,23 +90,36 @@ void display (void)
 //                                   0,          cos(spin),       -sin(spin),      0,
 //                                   0,          sin(spin),       cos(spin),       0,
 //                                   0,          0,               0,               1};
-    GLdouble rotateMatrix[16] =   {spin,  0,               0,               -1,
-                                   0,          spin,       -1,              0,
-                                   0,          0,               spin,       0,
-                                   1,          1,               0,               spin};
+//    GLdouble rotateMatrix[16] =   {spin,  0,               0,               -1,
+//                                   0,          spin,       -1,              0,
+//                                   0,          0,               spin,       0,
+//                                   1,          1,               0,               spin};
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     glPushMatrix();
     glPushMatrix();
     glPushMatrix();
-    glMultMatrixd(rotateMatrix);
+//    glMultMatrixd(rotateMatrix);
+    vector* check = new vector;
+    check->coorX = 1/sqrt(3);
+    check->coorY = 1/sqrt(3);
+    check->coorZ = 1/sqrt(3);;
+    // = {1.0, 0.0, 0.0};
+    GLdouble rotationMatrix[16];
+    memset(rotationMatrix, 0.0, 16);//] = new GLdouble[16]
+    rotateMatrix(spin, &AXIS_OX, rotationMatrix);
 //    glRotatef(spin, 1, 0, 0);
     drawTorus(&torus_1);
     glPopMatrix();
+    memset(rotationMatrix, 0.0, 16);
+    rotateMatrix(spin, &AXIS_OY, rotationMatrix);
 //    glRotatef(spin, 1, 0, 0);
 //    glPushMatrix();
 //    glRotatef(spin, 0, 1, 0);
     drawTorus(&torus_2);
     glPopMatrix();
+    memset(rotationMatrix, 0.0, 16);
+    rotateMatrix(spin, &AXIS_OZ, rotationMatrix);
+//    rotateMatrix(spin, &AXIS_OY, rotationMatrix);
 //    glRotatef(spin, 0, 1, 0);
 //    glPushMatrix();
 //    glRotatef(spin, 1, 0, 0);
@@ -138,6 +137,7 @@ int main(int argc, char** argv)
    glutInitWindowSize (500, 500);
    glutCreateWindow (argv[0]);
    init ();
+
    glutReshapeFunc (reshape);
    glutDisplayFunc (display);
    glutIdleFunc(spinTorus);
