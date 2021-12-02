@@ -7,15 +7,15 @@
 static GLdouble spin = 0;
 struct Torus
 {
-    float innerRadius;
-    float outerRadius;
+    double innerRadius;
+    double outerRadius;
     float materialAmbient[3];
     float materialDiffuse[3];
     float materailSpecular[3];
     float materialShine;
 };
+
+
 void drawTorus(Torus* torus);
 void drawPenechki();
-//void spinTorus(void);
-//void display (void);
 #endif // OBJECTDRAWER_H

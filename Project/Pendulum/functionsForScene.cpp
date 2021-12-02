@@ -1,4 +1,8 @@
 #include "functionsForScene.h"
+
+
+
+
 void init (void)
 {
    GLfloat light_ambient[] = { 0.0, 0.0, 0.0, 1.0 };
@@ -36,59 +40,43 @@ void reshape(int w, int h)
 }
 void spinTorus(void)
 {
-    spin += 0.0015;
+    spin += 0.003;
 //    if(spin == 360) spin = 0;
     glutPostRedisplay();
 }
+void initExternalTorus(double diameter, double thickness)
+{
+    torusExternal.outerRadius = diameter;
+    torusExternal.innerRadius = thickness;
 
+    torusMiddle.outerRadius   = 0.75 * diameter;
+    torusMiddle.innerRadius   = thickness;
+
+    torusInternal.outerRadius = 0.5 * diameter;
+    torusInternal.innerRadius = thickness;
+};
 void display (void)
 {
-    Torus torus_1
-    {
-        13.,
-        200.,
-        {0.0,0.0,255.0},
-        {0.2,0.2,0.2},
-        {0.6,0.6,0.6},
-        0.5*128
-    };
-    Torus torus_2
-    {
-        13.,
-        150.,
-        {0.,255.,0.},
-        {0.2,0.2,0.2},
-        {0.6,0.6,0.6},
-        0.5*128
-    };
-    Torus torus_3
-    {
-        13.,
-        100.,
-        {255.,0.,0.},
-        {0.2,0.2,0.2},
-        {0.6,0.6,0.6},
-        0.5*128
-    };
+
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     glPushMatrix();
-    glPushMatrix();
-    glPushMatrix();
-    GLdouble rotationMatrix[16];
-    memset(rotationMatrix, 0.0, 16);
+//    glPushMatrix();
+//    glPushMatrix();
+    GLdouble rotationMatrix[16] = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
     rotateMatrix(spin, &AXIS_OX, rotationMatrix);
-    drawTorus(&torus_1);
+    drawTorus(&torusExternal);
 //    glPopMatrix();
 //    rotateMatrix(spin, &AXIS_OX, rotationMatrix);
-    rotateMatrix(spin*2, &AXIS_OY, rotationMatrix);
-    drawTorus(&torus_2);
+    rotateMatrix(spin, &AXIS_OY, rotationMatrix);
+    drawTorus(&torusMiddle);
 //    glPopMatrix();
 //    rotateMatrix(spin, &AXIS_OY, rotationMatrix);
-    rotateMatrix(spin*3, &AXIS_OX, rotationMatrix);
+    rotateMatrix(spin, &AXIS_OX, rotationMatrix);
 
-    drawTorus(&torus_3);
+    drawTorus(&torusInternal);
     glPopMatrix();
-    glPushMatrix();
+//    glPushMatrix();
     glFlush ();
     glutSwapBuffers();
+
 }
