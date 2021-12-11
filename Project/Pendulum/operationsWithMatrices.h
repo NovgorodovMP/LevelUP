@@ -9,14 +9,14 @@ struct vector
     GLdouble coorZ;
 };
 
-static vector AXIS_OX= {1., 0., 0.};
-static vector AXIS_OY= {0., 1., 0.};
-static vector AXIS_OZ= {0., 0., 1.};
+constexpr vector AXIS_OX= {1., 0., 0.};
+constexpr vector AXIS_OY= {0., 1., 0.};
+constexpr vector AXIS_OZ= {0., 0., 1.};
 
 
 
-void createRotationMatrix(GLdouble angle, vector* quat, GLdouble* rotationMatrix);
-void rotateMatrix(GLdouble angle, vector* quat, GLdouble *rotationMatrix);
+void createRotationMatrix(GLdouble angle, vector quat, GLdouble* rotationMatrix);
+void rotateMatrix(GLdouble angle, vector quat, GLdouble *rotationMatrix);
 void shiftMatrix(GLdouble shiftX, GLdouble shiftY, GLdouble shiftZ);
 
 #endif // OPERATIONSWITHMATRICES_H

@@ -1,30 +1,34 @@
-#include <stdio.h>
 #include "objectDrawer.h"
 #include "operationsWithMatrices.h"
 #include "functionsForScene.h"
 
+#include <stdio.h>
+
 int main(int argc, char** argv)
 {
-    float externalDiameter;
-    float thickness;
-    printf("Initialize toruses: ");
-    scanf("%f%f", &externalDiameter, &thickness);
+    constexpr int windowHeight = 500;
+    constexpr int windowWidth = 500;
+    constexpr GLclampd redPart = 0.9;
+    constexpr GLclampd greenPart = 0.9;
+    constexpr GLclampd bluePart = 0.9;
+    constexpr GLclampd alphaPart = 0.9;
+    GLdouble externalDiameter = 100;
+    GLdouble thickness = 10;
+    printf("Initialize Radius and Thickness for external torus: ");
+    scanf("%lf%lf", &externalDiameter, &thickness);
+//    externalDiameter = externalDiameter > maximumDiameter ? maximumDiameter : externalDiameter;
     initExternalTorus(externalDiameter, thickness);
     glutInit(&argc, argv);
     glutInitDisplayMode(GLUT_SINGLE | GLUT_RGB | GLUT_DEPTH);
-    int windowHeight = 500;
-    int windowWidth = 500;
-    glutInitWindowSize (windowWidth, windowHeight);
-    glutCreateWindow (argv[0]);
-    init ();
-    glutReshapeFunc (reshape);
-    glutDisplayFunc (display);
-    glutIdleFunc(spinTorus);
-    GLclampd redPart = 0.9;
-    GLclampd greenPart = 0.9;
-    GLclampd bluePart = 0.9;
-    GLclampd alphaPart = 0.9;
+    glutInitWindowSize(windowWidth, windowHeight);
+    glutCreateWindow(argv[0]);
+    init();
+    glutKeyboardFunc(processNormalKeys);
+    glutReshapeFunc(reshape);
+    glutDisplayFunc(display);
+    glutTimerFunc(lengthOfFrame, spinTorus, 0);
     glClearColor(redPart, greenPart, bluePart, alphaPart);
+    glutSpecialFunc(processSpecialKeys);
     glutMainLoop();
     return 0;
 }
